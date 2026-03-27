@@ -278,6 +278,13 @@
   color: rgba(255,255,255,0.85);
 }
 
+.results__hint {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+
 /* ── Forecast Grid ── */
 .forecast-grid {
   display: grid;
@@ -300,13 +307,14 @@
 .forecast-card {
   background: var(--card-bg, #fff);
   border-radius: 16px;
-  padding: 1rem 0.75rem;
+  padding: 1rem 0.75rem 0.65rem;
   text-align: center;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
   border: 1.5px solid rgba(255,255,255,0.7);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .forecast-card::before {
@@ -436,15 +444,189 @@
   color: rgba(255,255,255,0.45);
 }
 
+.forecast-card__divider {
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+  margin: 0.55rem 0 0.45rem;
+}
+
+.app--dark .forecast-card__divider {
+  background: rgba(255,255,255,0.1);
+}
+
+.forecast-card__stats {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.forecast-card__stat {
+  font-size: 0.71rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.app--dark .forecast-card__stat {
+  color: rgba(255,255,255,0.6);
+}
+
 .forecast-card__precip {
-  margin-top: 0.4rem;
-  font-size: 0.72rem;
+  margin-top: 0.35rem;
+  font-size: 0.71rem;
   color: #5a7faa;
   font-weight: 500;
 }
 
 .app--dark .forecast-card__precip {
   color: #7ab4e0;
+}
+
+.forecast-card__expand-hint {
+  margin-top: 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(90,62,155,0.5);
+  text-transform: uppercase;
+}
+
+.app--dark .forecast-card__expand-hint {
+  color: rgba(196,160,255,0.45);
+}
+
+.forecast-card--selected {
+  border-color: rgba(118,75,162,0.7) !important;
+  box-shadow: 0 0 0 3px rgba(118,75,162,0.2), 0 6px 24px rgba(118,75,162,0.2) !important;
+}
+
+.app--dark .forecast-card--selected {
+  border-color: rgba(180,140,255,0.7) !important;
+  box-shadow: 0 0 0 3px rgba(140,100,255,0.25), 0 6px 24px rgba(140,100,255,0.3) !important;
+}
+
+/* ── Hourly Panel ── */
+.hourly-panel {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  animation: fadeUp 0.25s ease-out;
+}
+
+.hourly-panel--dark {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.hourly-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+
+.hourly-panel__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  letter-spacing: 0.01em;
+}
+
+.hourly-panel__close {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.hourly-panel__close:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+.hourly-panel__scroll {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.hourly-panel__scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.hourly-panel__scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hourly-panel__scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 4px;
+}
+
+.hour-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 80px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  padding: 0.65rem 0.5rem;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.hourly-panel--dark .hour-slot {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.hour-slot:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.hourly-panel--dark .hour-slot:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.hour-slot__time {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.hour-slot__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.hour-slot__temp {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.hour-slot__stat {
+  font-size: 0.67rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  white-space: nowrap;
 }
 
 /* ── Attribution ── */
