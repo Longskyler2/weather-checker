@@ -35,7 +35,7 @@ A clean, modern React web app that shows a 10-day weather forecast for any city 
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/WeatherCheckerAPI.git
+git clone https://github.com/Longskyler2/WeatherCheckerAPI.git
 cd WeatherCheckerAPI
 
 # Install dependencies
