@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────
+# REQUIREMENTS
+# 10-Day Weather Forecast Checker
+#
+# This is a Node.js / React project.
+# All packages are managed via npm — run `npm install` to install.
+# This file documents dependencies for reference.
+# ─────────────────────────────────────────────────────────────
+
+# ── Runtime ──────────────────────────────────────────────────
+# Node.js     >= 18.0.0      https://nodejs.org
+# npm         >= 9.0.0       (bundled with Node.js)
+
+# ── Production Dependencies ───────────────────────────────────
+react@^18.3.1
+react-dom@^18.3.1
+
+# ── Dev Dependencies ──────────────────────────────────────────
+vite@^6.0.5
+@vitejs/plugin-react@^4.3.4
+@types/react@^18.3.1
+@types/react-dom@^18.3.1
+
+# ── External APIs (no install required) ───────────────────────
+# Open-Meteo Geocoding API   https://geocoding-api.open-meteo.com  (free, no key)
+# Open-Meteo Forecast API    https://api.open-meteo.com            (free, no key)
