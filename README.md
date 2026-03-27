@@ -11,7 +11,7 @@ A clean, modern React web app that shows a 10-day weather forecast for any city 
   - Weather condition with emoji icon
   - Precipitation in mm (when applicable)
 - Shimmer skeleton loading animation
-- Celsius / Farenheit toggle
+- Celsius / Fahrenheit toggle
 - Night mode
 - Error handling for invalid locations or API failures
 - Fully responsive layout (5-col → 2-col → 1-col grid)
