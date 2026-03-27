@@ -1,40 +1,40 @@
 import { useState } from 'react'
 import './App.css'
 
-// WMO Weather Code → { label, emoji, bg }
+// WMO Weather Code → { label, emoji, lightBg, darkBg }
 const WMO_CODES = {
-  0:  { label: 'Clear Sky',         emoji: '☀️',  bg: '#FFF9C4' },
-  1:  { label: 'Mainly Clear',      emoji: '🌤️', bg: '#FFF9C4' },
-  2:  { label: 'Partly Cloudy',     emoji: '⛅',  bg: '#E3F2FD' },
-  3:  { label: 'Overcast',          emoji: '☁️',  bg: '#ECEFF1' },
-  45: { label: 'Foggy',             emoji: '🌫️', bg: '#ECEFF1' },
-  48: { label: 'Icy Fog',           emoji: '🌫️', bg: '#ECEFF1' },
-  51: { label: 'Light Drizzle',     emoji: '🌦️', bg: '#E3F2FD' },
-  53: { label: 'Drizzle',           emoji: '🌦️', bg: '#E3F2FD' },
-  55: { label: 'Heavy Drizzle',     emoji: '🌧️', bg: '#BBDEFB' },
-  61: { label: 'Light Rain',        emoji: '🌧️', bg: '#BBDEFB' },
-  63: { label: 'Rain',              emoji: '🌧️', bg: '#BBDEFB' },
-  65: { label: 'Heavy Rain',        emoji: '🌧️', bg: '#90CAF9' },
-  71: { label: 'Light Snow',        emoji: '🌨️', bg: '#E8EAF6' },
-  73: { label: 'Snow',              emoji: '❄️',  bg: '#E8EAF6' },
-  75: { label: 'Heavy Snow',        emoji: '❄️',  bg: '#C5CAE9' },
-  77: { label: 'Snow Grains',       emoji: '🌨️', bg: '#E8EAF6' },
-  80: { label: 'Light Showers',     emoji: '🌦️', bg: '#E3F2FD' },
-  81: { label: 'Rain Showers',      emoji: '🌧️', bg: '#BBDEFB' },
-  82: { label: 'Heavy Showers',     emoji: '⛈️',  bg: '#90CAF9' },
-  85: { label: 'Snow Showers',      emoji: '🌨️', bg: '#E8EAF6' },
-  86: { label: 'Heavy Snow Showers',emoji: '❄️',  bg: '#C5CAE9' },
-  95: { label: 'Thunderstorm',      emoji: '⛈️',  bg: '#B0BEC5' },
-  96: { label: 'Thunderstorm',      emoji: '⛈️',  bg: '#B0BEC5' },
-  99: { label: 'Severe Thunderstorm',emoji: '🌩️', bg: '#90A4AE' },
+  0:  { label: 'Clear Sky',          emoji: '☀️',  lightBg: '#FFF9C4', darkBg: '#3a3510' },
+  1:  { label: 'Mainly Clear',       emoji: '🌤️', lightBg: '#FFF9C4', darkBg: '#3a3510' },
+  2:  { label: 'Partly Cloudy',      emoji: '⛅',  lightBg: '#E3F2FD', darkBg: '#1a2a3a' },
+  3:  { label: 'Overcast',           emoji: '☁️',  lightBg: '#ECEFF1', darkBg: '#252830' },
+  45: { label: 'Foggy',              emoji: '🌫️', lightBg: '#ECEFF1', darkBg: '#252830' },
+  48: { label: 'Icy Fog',            emoji: '🌫️', lightBg: '#ECEFF1', darkBg: '#252830' },
+  51: { label: 'Light Drizzle',      emoji: '🌦️', lightBg: '#E3F2FD', darkBg: '#1a2a3a' },
+  53: { label: 'Drizzle',            emoji: '🌦️', lightBg: '#E3F2FD', darkBg: '#1a2a3a' },
+  55: { label: 'Heavy Drizzle',      emoji: '🌧️', lightBg: '#BBDEFB', darkBg: '#152235' },
+  61: { label: 'Light Rain',         emoji: '🌧️', lightBg: '#BBDEFB', darkBg: '#152235' },
+  63: { label: 'Rain',               emoji: '🌧️', lightBg: '#BBDEFB', darkBg: '#152235' },
+  65: { label: 'Heavy Rain',         emoji: '🌧️', lightBg: '#90CAF9', darkBg: '#0f1a28' },
+  71: { label: 'Light Snow',         emoji: '🌨️', lightBg: '#E8EAF6', darkBg: '#1e2030' },
+  73: { label: 'Snow',               emoji: '❄️',  lightBg: '#E8EAF6', darkBg: '#1e2030' },
+  75: { label: 'Heavy Snow',         emoji: '❄️',  lightBg: '#C5CAE9', darkBg: '#181b2a' },
+  77: { label: 'Snow Grains',        emoji: '🌨️', lightBg: '#E8EAF6', darkBg: '#1e2030' },
+  80: { label: 'Light Showers',      emoji: '🌦️', lightBg: '#E3F2FD', darkBg: '#1a2a3a' },
+  81: { label: 'Rain Showers',       emoji: '🌧️', lightBg: '#BBDEFB', darkBg: '#152235' },
+  82: { label: 'Heavy Showers',      emoji: '⛈️',  lightBg: '#90CAF9', darkBg: '#0f1a28' },
+  85: { label: 'Snow Showers',       emoji: '🌨️', lightBg: '#E8EAF6', darkBg: '#1e2030' },
+  86: { label: 'Heavy Snow Showers', emoji: '❄️',  lightBg: '#C5CAE9', darkBg: '#181b2a' },
+  95: { label: 'Thunderstorm',       emoji: '⛈️',  lightBg: '#B0BEC5', darkBg: '#1a1e22' },
+  96: { label: 'Thunderstorm',       emoji: '⛈️',  lightBg: '#B0BEC5', darkBg: '#1a1e22' },
+  99: { label: 'Severe Thunderstorm',emoji: '🌩️', lightBg: '#90A4AE', darkBg: '#141820' },
 }
 
 function getWeatherInfo(code) {
-  return WMO_CODES[code] ?? { label: 'Unknown', emoji: '🌡️', bg: '#F5F5F5' }
+  return WMO_CODES[code] ?? { label: 'Unknown', emoji: '🌡️', lightBg: '#F5F5F5', darkBg: '#222' }
 }
 
 function formatDate(dateStr) {
-  const date = new Date(dateStr + 'T12:00:00') // avoid timezone edge case
+  const date = new Date(dateStr + 'T12:00:00')
   const today = new Date()
   today.setHours(12, 0, 0, 0)
   const tomorrow = new Date(today)
@@ -42,25 +42,34 @@ function formatDate(dateStr) {
 
   if (date.toDateString() === today.toDateString()) return 'Today'
   if (date.toDateString() === tomorrow.toDateString()) return 'Tomorrow'
-
   return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
 }
 
-function ForecastCard({ day, index }) {
+function toC(f) { return (f - 32) * 5 / 9 }
+
+function displayTemp(f, unit) {
+  return unit === 'C' ? Math.round(toC(f)) : Math.round(f)
+}
+
+function ForecastCard({ day, index, unit, dark }) {
   const weather = getWeatherInfo(day.weathercode)
   const isToday = index === 0
+  const cardBg = dark ? weather.darkBg : weather.lightBg
 
   return (
-    <div className={`forecast-card ${isToday ? 'forecast-card--today' : ''}`} style={{ '--card-bg': weather.bg }}>
+    <div
+      className={`forecast-card ${isToday ? 'forecast-card--today' : ''}`}
+      style={{ '--card-bg': cardBg }}
+    >
       <div className="forecast-card__date">
         <span className="forecast-card__weekday">{formatDate(day.date)}</span>
       </div>
       <div className="forecast-card__icon">{weather.emoji}</div>
       <div className="forecast-card__label">{weather.label}</div>
       <div className="forecast-card__temps">
-        <span className="forecast-card__high">{Math.round(day.temperature_2m_max)}°</span>
+        <span className="forecast-card__high">{displayTemp(day.temperature_2m_max, unit)}°</span>
         <span className="forecast-card__separator">/</span>
-        <span className="forecast-card__low">{Math.round(day.temperature_2m_min)}°</span>
+        <span className="forecast-card__low">{displayTemp(day.temperature_2m_min, unit)}°</span>
       </div>
       {day.precipitation_sum > 0 && (
         <div className="forecast-card__precip">
@@ -77,6 +86,8 @@ export default function App() {
   const [locationName, setLocationName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [unit, setUnit] = useState('F')
+  const [dark, setDark] = useState(false)
 
   async function handleSearch(e) {
     e.preventDefault()
@@ -89,7 +100,6 @@ export default function App() {
     setLocationName('')
 
     try {
-      // Step 1: Geocode the query (supports city names and many ZIP codes)
       const geoRes = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(trimmed)}&count=1&language=en&format=json`
       )
@@ -101,10 +111,9 @@ export default function App() {
       }
 
       const { latitude, longitude, name, admin1, country } = geoData.results[0]
-      const displayName = [name, admin1, country].filter(Boolean).join(', ')
-      setLocationName(displayName)
+      setLocationName([name, admin1, country].filter(Boolean).join(', '))
 
-      // Step 2: Fetch 10-day forecast from Open-Meteo
+      // Always fetch in Fahrenheit — convert to °C client-side if needed
       const weatherRes = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
         `&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum` +
@@ -115,15 +124,13 @@ export default function App() {
       const weatherData = await weatherRes.json()
       const { time, weathercode, temperature_2m_max, temperature_2m_min, precipitation_sum } = weatherData.daily
 
-      const days = time.map((date, i) => ({
+      setForecast(time.map((date, i) => ({
         date,
         weathercode: weathercode[i],
         temperature_2m_max: temperature_2m_max[i],
         temperature_2m_min: temperature_2m_min[i],
         precipitation_sum: precipitation_sum[i] ?? 0,
-      }))
-
-      setForecast(days)
+      })))
     } catch (err) {
       setError(err.message || 'Something went wrong. Please try again.')
     } finally {
@@ -134,8 +141,36 @@ export default function App() {
   const todayWeather = forecast ? getWeatherInfo(forecast[0].weathercode) : null
 
   return (
-    <div className="app">
+    <div className={`app ${dark ? 'app--dark' : ''}`}>
       <div className="app__container">
+
+        {/* Top controls */}
+        <div className="controls">
+          <button
+            className="toggle-btn"
+            onClick={() => setUnit(u => u === 'F' ? 'C' : 'F')}
+            aria-label="Toggle temperature unit"
+          >
+            °{unit === 'F' ? 'F' : 'C'}
+            <span className="toggle-btn__track">
+              <span className={`toggle-btn__thumb ${unit === 'C' ? 'toggle-btn__thumb--right' : ''}`} />
+            </span>
+            °{unit === 'F' ? 'C' : 'F'}
+          </button>
+
+          <button
+            className="toggle-btn"
+            onClick={() => setDark(d => !d)}
+            aria-label="Toggle dark mode"
+          >
+            {dark ? '☀️' : '🌙'}
+            <span className="toggle-btn__track">
+              <span className={`toggle-btn__thumb ${dark ? 'toggle-btn__thumb--right' : ''}`} />
+            </span>
+            {dark ? '🌙' : '☀️'}
+          </button>
+        </div>
+
         {/* Header */}
         <header className="header">
           <div className="header__icon">🌤️</div>
@@ -183,17 +218,15 @@ export default function App() {
         {forecast && !loading && (
           <section className="results">
             <div className="results__header">
-              <h2 className="results__location">
-                📍 {locationName}
-              </h2>
+              <h2 className="results__location">📍 {locationName}</h2>
               <p className="results__today-summary">
-                {todayWeather.emoji} Today: {todayWeather.label} · {Math.round(forecast[0].temperature_2m_max)}°F high
+                {todayWeather.emoji} Today: {todayWeather.label} · {displayTemp(forecast[0].temperature_2m_max, unit)}°{unit} high
               </p>
             </div>
 
             <div className="forecast-grid">
               {forecast.map((day, i) => (
-                <ForecastCard key={day.date} day={day} index={i} />
+                <ForecastCard key={day.date} day={day} index={i} unit={unit} dark={dark} />
               ))}
             </div>
 

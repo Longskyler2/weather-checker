@@ -1,7 +1,13 @@
-/* ── Layout ── */
+/* ── Layout & Theme ── */
 .app {
   min-height: 100vh;
   padding: 2rem 1rem 4rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: background 0.4s ease;
+}
+
+.app--dark {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #1a1a2e 100%);
 }
 
 .app__container {
@@ -9,11 +15,69 @@
   margin: 0 auto;
 }
 
+/* ── Controls (top-right toggles) ── */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.15);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s;
+  user-select: none;
+}
+
+.toggle-btn:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.55);
+}
+
+.toggle-btn__track {
+  width: 28px;
+  height: 16px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 999px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.toggle-btn__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-btn__thumb--right {
+  transform: translateX(12px);
+}
+
 /* ── Header ── */
 .header {
   text-align: center;
   margin-bottom: 2.5rem;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 
 .header__icon {
@@ -70,8 +134,18 @@
   font-family: inherit;
   color: #1a1a2e;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.app--dark .search__input {
+  background: rgba(255,255,255,0.08);
+  color: #e8e8f0;
+  border-color: rgba(255,255,255,0.15);
+}
+
+.app--dark .search__input::placeholder {
+  color: rgba(255,255,255,0.35);
 }
 
 .search__input::placeholder {
@@ -82,6 +156,11 @@
   border-color: rgba(255,255,255,0.8);
   background: #ffffff;
   box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+
+.app--dark .search__input:focus {
+  background: rgba(255,255,255,0.14);
+  color: #ffffff;
 }
 
 .search__input:disabled {
@@ -108,10 +187,20 @@
   justify-content: center;
 }
 
+.app--dark .search__button {
+  background: rgba(255,255,255,0.12);
+  color: #e0d4ff;
+  border: 1.5px solid rgba(255,255,255,0.2);
+}
+
 .search__button:hover:not(:disabled) {
   background: #ffffff;
   transform: translateY(-1px);
   box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+}
+
+.app--dark .search__button:hover:not(:disabled) {
+  background: rgba(255,255,255,0.22);
 }
 
 .search__button:active:not(:disabled) {
@@ -155,6 +244,12 @@
   box-shadow: 0 2px 12px rgba(183, 28, 28, 0.1);
 }
 
+.app--dark .error-banner {
+  background: rgba(80, 10, 20, 0.8);
+  border-color: #c62828;
+  color: #ff8a80;
+}
+
 /* ── Results ── */
 .results {
   animation: fadeUp 0.35s ease-out;
@@ -192,21 +287,13 @@
 }
 
 @media (max-width: 900px) {
-  .forecast-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  .forecast-grid { grid-template-columns: repeat(4, 1fr); }
 }
-
 @media (max-width: 680px) {
-  .forecast-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .forecast-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 380px) {
-  .forecast-grid {
-    grid-template-columns: 1fr;
-  }
+  .forecast-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Forecast Card ── */
@@ -216,7 +303,7 @@
   padding: 1rem 0.75rem;
   text-align: center;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
   border: 1.5px solid rgba(255,255,255,0.7);
   position: relative;
   overflow: hidden;
@@ -228,6 +315,16 @@
   inset: 0;
   background: rgba(255,255,255,0.35);
   pointer-events: none;
+  transition: background 0.3s;
+}
+
+.app--dark .forecast-card {
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
+
+.app--dark .forecast-card::before {
+  background: rgba(0,0,0,0.25);
 }
 
 .forecast-card:hover {
@@ -235,9 +332,18 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.14);
 }
 
+.app--dark .forecast-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+
 .forecast-card--today {
   border: 2px solid rgba(118, 75, 162, 0.5);
   box-shadow: 0 6px 24px rgba(118, 75, 162, 0.2);
+}
+
+.app--dark .forecast-card--today {
+  border-color: rgba(180, 140, 255, 0.5);
+  box-shadow: 0 6px 24px rgba(140, 100, 255, 0.25);
 }
 
 .forecast-card--today::after {
@@ -254,6 +360,11 @@
   border-radius: 20px;
 }
 
+.app--dark .forecast-card--today::after {
+  color: #c4a0ff;
+  background: rgba(180, 140, 255, 0.15);
+}
+
 .forecast-card__date {
   margin-bottom: 0.5rem;
   position: relative;
@@ -265,6 +376,10 @@
   color: #4a4a6a;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.app--dark .forecast-card__weekday {
+  color: rgba(255,255,255,0.65);
 }
 
 .forecast-card__icon {
@@ -285,6 +400,10 @@
   justify-content: center;
 }
 
+.app--dark .forecast-card__label {
+  color: rgba(255,255,255,0.55);
+}
+
 .forecast-card__temps {
   display: flex;
   align-items: baseline;
@@ -298,6 +417,10 @@
   color: #2d2d50;
 }
 
+.app--dark .forecast-card__high {
+  color: #f0eaff;
+}
+
 .forecast-card__separator {
   font-size: 0.85rem;
   color: #9aa0b2;
@@ -309,11 +432,19 @@
   color: #7c7c9c;
 }
 
+.app--dark .forecast-card__low {
+  color: rgba(255,255,255,0.45);
+}
+
 .forecast-card__precip {
   margin-top: 0.4rem;
   font-size: 0.72rem;
   color: #5a7faa;
   font-weight: 500;
+}
+
+.app--dark .forecast-card__precip {
+  color: #7ab4e0;
 }
 
 /* ── Attribution ── */
@@ -359,6 +490,16 @@
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
+}
+
+.app--dark .skeleton-card {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
 }
 
 @keyframes shimmer {
